@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/waste-warrior-design-system-7908025b-0e2e-433d-98e3-e76490f174df/colors_and_type.css">
+<script src="_ds/waste-warrior-design-system-7908025b-0e2e-433d-98e3-e76490f174df/_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: var(--background); }
+  * { -webkit-tap-highlight-color: transparent; }
+  a { color: var(--primary); }
+  a:hover { color: var(--secondary); }
+</style>
+</helmet>
+<div style="min-height: 100vh; max-width: 430px; margin: 0 auto; background: var(--background); color: var(--foreground); font-family: Asap, sans-serif; padding: 16px 16px 190px; display: flex; flex-direction: column; gap: 14px;">
+
+  <div class="contrast" style="background: var(--background); color: var(--foreground); border-radius: 26px; padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 4px;">
+    <a href="Startscherm mobiel.dc.html" style="text-decoration: none; color: var(--primary); font-size: 16px;">← Home</a>
+    <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.08; padding-top: 8px;">Weekbestellingen</div>
+    <div style="font-size: 17px; color: var(--primary);">{{ subhead }}</div>
+  </div>
+
+  <div style="display: flex; align-items: baseline; gap: 8px; padding: 4px 4px 0;">
+    <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 600; font-size: 22px;">Weken</div>
+  </div>
+
+  <sc-for list="{{ weeks }}" as="w" hint-placeholder-count="3">
+    <div style="border: 1px solid var(--border); border-radius: 20px; background: var(--card); overflow: hidden;">
+      <button onClick="{{ w.onToggle }}" style="width: 100%; text-align: left; border: none; background: transparent; padding: 16px; font-family: Asap, sans-serif; color: var(--foreground); display: flex; align-items: center; gap: 12px;">
+        <div style="flex: 1; min-width: 0;">
+          <div style="display: flex; align-items: center; gap: 10px; padding-bottom: 6px;">
+            <span style="{{ w.badgeStyle }}">{{ w.badge }}</span>
+          </div>
+          <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 22px; line-height: 1.2;">{{ w.title }}</div>
+          <div style="font-size: 15px; color: var(--muted-foreground); padding-top: 2px;">{{ w.meta }}</div>
+        </div>
+        <span style="flex: 0 0 auto; font-size: 22px; color: var(--muted-foreground);">{{ w.caret }}</span>
+      </button>
+      <sc-if value="{{ w.open }}" hint-placeholder-val="{{ true }}">
+        <div style="border-top: 1px solid var(--border); padding: 6px 16px 16px; display: flex; flex-direction: column; gap: 10px;">
+          <sc-for list="{{ w.days }}" as="d" hint-placeholder-count="7">
+            <div style="display: flex; gap: 10px; padding-top: 10px;">
+              <div style="flex: 0 0 74px; font-size: 14px; color: var(--muted-foreground); white-space: nowrap; padding-top: 2px;">{{ d.label }}</div>
+              <div style="flex: 1; min-width: 0; display: flex; gap: 8px; align-items: baseline;">
+                <span style="font-size: 16px; line-height: 1.3; text-wrap: pretty; color: {{ d.ink }};">{{ d.dish }}</span>
+                <span style="margin-left: auto; font-size: 14px; color: var(--muted-foreground); white-space: nowrap;">{{ d.count }}</span>
+              </div>
+            </div>
+          </sc-for>
+          <a href="{{ w.href }}" style="text-decoration: none; text-align: center; border: 1px solid var(--primary); border-radius: var(--radius-pill); padding: 12px; font-size: 16px; color: var(--primary); margin-top: 6px;">{{ w.linkLabel }}</a>
+        </div>
+      </sc-if>
+    </div>
+  </sc-for>
+
+  <div style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 6;">
+    <div style="max-width: 430px; margin: 0 auto; background: var(--card); border-top: 1px solid var(--border); padding: 12px 16px 0;">
+      <a href="Bestelmodule mobiel.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; background: var(--primary); color: var(--primary-foreground); border-radius: 20px; padding: 12px 14px 12px 20px; min-height: 64px; box-sizing: border-box;">
+        <span style="flex: 1; min-width: 0;">
+          <span style="display: block; font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 23px; line-height: 1.15;">Bestelling starten</span>
+          <span style="display: block; font-size: 14px; opacity: 0.85;">{{ ctaMeta }}</span>
+        </span>
+        <span style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: var(--radius-pill); background: var(--primary-foreground); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 22px;">→</span>
+      </a>
+      <div style="display: flex; gap: 6px; padding: 10px 0 20px;">
+        <a href="Startscherm mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; color: var(--muted-foreground); font-size: 14px;">Home</a>
+        <span style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); background: var(--accent); color: var(--primary); font-size: 14px; font-weight: 500;">Bestellen</span>
+        <a href="Metingen mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; color: var(--muted-foreground); font-size: 14px;">Metingen</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:430,&quot;height&quot;:900}}">
+const DAYS = [
+  { day: "Maandag", date: "24 aug", a: "Gehaktbal met jus", b: "Gestoofde vis met saus" },
+  { day: "Dinsdag", date: "25 aug", a: "Sucadelapje met jus", b: "Hamlapje met jus" },
+  { day: "Woensdag", date: "26 aug", a: "Kipschnitzel met jus", b: "Lamslapje met jus" },
+  { day: "Donderdag", date: "27 aug", a: "Runderlapje met jus", b: "Kalkoendijlapje met jus" },
+  { day: "Vrijdag", date: "28 aug", a: "Gebakken kibbeling met saus", b: "Kip tikka masala" },
+  { day: "Zaterdag", date: "29 aug", a: "Omelet met kaas", b: "Procureurlapje met jus" },
+  { day: "Zondag", date: "30 aug", a: "Varkensschnitzel met jus", b: "Kalkoenrollade" }
+];
+
+const NEXT_DAYS = [
+  { day: "Maandag", date: "31 aug", a: "Boerenkoolstamppot met rookworst", b: "Kipfilet met kerriesaus" },
+  { day: "Dinsdag", date: "1 sep", a: "Hachee met rode kool", b: "Zalmfilet met dillesaus" },
+  { day: "Woensdag", date: "2 sep", a: "Macaroni met gehakt", b: "Vegetarische lasagne" },
+  { day: "Donderdag", date: "3 sep", a: "Sucadelapje met jus", b: "Kipschnitzel met jus" },
+  { day: "Vrijdag", date: "4 sep", a: "Gebakken schol met remouladesaus", b: "Kip tikka masala" },
+  { day: "Zaterdag", date: "5 sep", a: "Omelet met ham", b: "Speklapje met jus" },
+  { day: "Zondag", date: "6 sep", a: "Kalkoenrollade", b: "Varkenshaas met champignonsaus" }
+];
+
+const KEY_DAYS = "ww-order-days-v3";
+const KEY_PEOPLE = "ww-weekmenu-people";
+const KEY_ORDER = "ww-weekmenu-order-v3";
+
+function MIGRATE_DAYS(d) {
+  if (!Array.isArray(d) || d.length !== 7 || !d[1] || !d[3]) return d;
+  if (d[1].dish === "Kip tikka masala" && d[3].dish === "Sucadelapje met jus") {
+    const n = d.slice();
+    n[1] = Object.assign({}, d[1], { dish: d[3].dish });
+    n[3] = Object.assign({}, d[3], { dish: d[1].dish });
+    try { localStorage.setItem(KEY_DAYS, JSON.stringify(n)); } catch (e) {}
+    return n;
+  }
+  return d;
+}
+
+class Component extends DCLogic {
+  state = { days: null, people: null, placed: false, open: { 0: true } };
+
+
+  componentDidMount() {
+    try {
+      const days = MIGRATE_DAYS(JSON.parse(localStorage.getItem(KEY_DAYS) || "null"));
+      const people = JSON.parse(localStorage.getItem(KEY_PEOPLE) || "null");
+      const placed = !!localStorage.getItem(KEY_ORDER);
+      this.setState({ days, people, placed });
+    } catch (e) {}
+  }
+
+  badge(tone, label) {
+    const bg = tone === "done" ? "var(--primary)" : tone === "open" ? "var(--accent)" : "var(--muted)";
+    const fg = tone === "done" ? "var(--primary-foreground)" : "var(--foreground)";
+    return { badge: label, badgeStyle: "border-radius: var(--radius-pill); padding: 7px 13px; font-size: 14px; white-space: nowrap; background: " + bg + "; color: " + fg + ";" };
+  }
+
+  toggle(i) {
+    this.setState(s => {
+      const open = Object.assign({}, s.open);
+      open[i] = !open[i];
+      return { open };
+    });
+  }
+
+  renderVals() {
+    const { people, placed, open } = this.state;
+    const nPeople = people ? people.length : 12;
+    const names = people || [];
+    const days = (this.state.days && this.state.days.length === 7 && this.state.days[0] && "dish" in this.state.days[0])
+      ? this.state.days : null;
+    const total = 7;
+    let filled = 0, eating = 0;
+    const portions = d => names.length
+      ? names.filter(n => (d.off || []).indexOf(n) === -1).length + (d.extras || []).length
+      : Math.max(0, nPeople - (d.off || []).length) + (d.extras || []).length;
+    if (days) days.forEach(d => {
+      if (!d.dish) return;
+      filled++;
+      eating += portions(d);
+    });
+
+    const WARN_INK = "oklch(0.45 0.10 60)";
+    const dayRow = di => {
+      const d = days ? days[di] : null;
+      if (!d || !d.dish) return { dish: "Nog geen gerecht gekozen", count: "—", ink: WARN_INK };
+      return { dish: d.dish, count: portions(d) + "×", ink: "var(--foreground)" };
+    };
+
+    const weeks = [
+      Object.assign({
+        title: "Week 3 · ma 24 t/m zo 30 augustus",
+        meta: placed
+          ? "Verstuurd · " + eating + " porties"
+          : filled >= total
+            ? "Compleet · " + eating + " porties"
+            : filled + "/" + total + " gerechten gekozen",
+        open: !!open[0],
+        caret: open[0] ? "−" : "+",
+        onToggle: () => this.toggle(0),
+        href: "Bestelmodule mobiel.dc.html",
+        linkLabel: "Gerechten aanpassen",
+        days: DAYS.map((d, di) => Object.assign({
+          label: d.day.slice(0, 2) + " " + d.date
+        }, dayRow(di)))
+      }, this.badge(placed || filled >= total ? "done" : "open", placed ? "Verstuurd" : filled >= total ? "Compleet" : "Loopt")),
+      Object.assign({
+        title: "Week 4 · ma 31 augustus t/m zo 6 september",
+        meta: "Nog geen gerechten gekozen",
+        open: !!open[1],
+        caret: open[1] ? "−" : "+",
+        onToggle: () => this.toggle(1),
+        href: "Bestelmodule mobiel.dc.html",
+        linkLabel: "Bestelling starten voor week 4",
+        days: NEXT_DAYS.map(d => ({
+          label: d.day.slice(0, 2) + " " + d.date,
+          dish: "Nog geen gerecht gekozen",
+          count: "—",
+          ink: "oklch(0.45 0.10 60)"
+        }))
+      }, this.badge("idle", "Nog te doen"))
+    ];
+
+    return {
+      subhead: placed
+        ? "Week 3 is verstuurd. Week 4 staat klaar."
+        : filled >= total
+          ? "Week 3 is compleet. Week 4 moet nog."
+          : (total - filled) + " dagen zonder gerecht in week 3",
+      weeks,
+      ctaMeta: placed
+        ? "Begin met week 4"
+        : filled >= total
+          ? "Week 3 is compleet · begin met week 4"
+          : "Ga door met week 3 · " + (total - filled) + " open"
+    };
+  }
+}
+</script>
+</body>
+</html>

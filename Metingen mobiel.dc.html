@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/waste-warrior-design-system-7908025b-0e2e-433d-98e3-e76490f174df/colors_and_type.css">
+<script src="_ds/waste-warrior-design-system-7908025b-0e2e-433d-98e3-e76490f174df/_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: var(--background); }
+  * { -webkit-tap-highlight-color: transparent; }
+  a { color: var(--primary); }
+  a:hover { color: var(--secondary); }
+</style>
+</helmet>
+<div style="min-height: 100vh; max-width: 430px; margin: 0 auto; background: var(--background); color: var(--foreground); font-family: Asap, sans-serif; padding: 16px 16px 190px; display: flex; flex-direction: column; gap: 14px;">
+
+  <div class="contrast" style="background: var(--background); color: var(--foreground); border-radius: 26px; padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 4px;">
+    <a href="Startscherm mobiel.dc.html" style="text-decoration: none; color: var(--primary); font-size: 16px;">← Home</a>
+    <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.08; padding-top: 8px;">Metingen</div>
+    <div style="font-size: 17px; color: var(--primary);">{{ subhead }}</div>
+    <div style="display: flex; gap: 10px; padding-top: 16px;">
+      <div style="flex: 1; background: var(--card); border-radius: 16px; padding: 12px;">
+        <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 24px;">{{ avgPct }}</div>
+        <div style="font-size: 14px; color: var(--muted-foreground);">gemiddeld</div>
+      </div>
+      <div style="flex: 1; background: var(--card); border-radius: 16px; padding: 12px;">
+        <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 24px;">{{ totalKg }}</div>
+        <div style="font-size: 14px; color: var(--muted-foreground);">kg deze week</div>
+      </div>
+      <div style="flex: 1; background: var(--card); border-radius: 16px; padding: 12px;">
+        <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 24px;">{{ count }}</div>
+        <div style="font-size: 14px; color: var(--muted-foreground);">metingen</div>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ starting }}" hint-placeholder-val="{{ false }}">
+    <div style="border-radius: 20px; background: var(--accent); padding: 16px; display: flex; flex-direction: column; gap: 14px;">
+      <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 22px;">Nieuwe meting</div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 14px; color: var(--muted-foreground);">Maaltijd</div>
+        <div style="display: flex; gap: 8px;">
+          <sc-for list="{{ mealOptions }}" as="m" hint-placeholder-count="3">
+            <button onClick="{{ m.onClick }}" style="{{ m.style }}">{{ m.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-size: 14px; color: var(--muted-foreground);">Borden</div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button onClick="{{ onPlatesMinus }}" style="{{ stepStyle }}">−</button>
+            <div style="flex: 1; text-align: center; font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 22px;">{{ plates }}</div>
+            <button onClick="{{ onPlatesPlus }}" style="{{ stepStyle }}">+</button>
+          </div>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-size: 14px; color: var(--muted-foreground);">Verspilling (kg)</div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button onClick="{{ onKgMinus }}" style="{{ stepStyle }}">−</button>
+            <div style="flex: 1; text-align: center; font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 22px;">{{ kgLabel }}</div>
+            <button onClick="{{ onKgPlus }}" style="{{ stepStyle }}">+</button>
+          </div>
+        </div>
+      </div>
+      <div style="font-size: 15px; color: var(--muted-foreground);">{{ previewLine }}</div>
+      <div style="display: flex; gap: 8px;">
+        <button onClick="{{ onSave }}" style="flex: 1; min-height: 52px; border: none; border-radius: var(--radius-sm); background: var(--primary); color: var(--primary-foreground); font-family: Asap, sans-serif; font-size: 17px; font-weight: 500;">Meting opslaan</button>
+        <button onClick="{{ onCancel }}" style="flex: 0 0 auto; min-height: 52px; padding: 0 18px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: transparent; color: var(--muted-foreground); font-family: Asap, sans-serif; font-size: 16px;">Annuleer</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="display: flex; align-items: baseline; gap: 8px; padding: 4px 4px 0;">
+    <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 600; font-size: 22px;">Deze week</div>
+    <div style="font-size: 17px; color: var(--muted-foreground); margin-left: auto;">{{ count }}</div>
+  </div>
+
+  <sc-for list="{{ metingen }}" as="m" hint-placeholder-count="4">
+    <div style="border: 1px solid var(--border); border-radius: 20px; background: var(--card); padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="border-radius: var(--radius-pill); padding: 8px 14px; font-size: 15px; background: var(--primary); color: var(--primary-foreground); white-space: nowrap;">Voltooid</span>
+        <span style="margin-left: auto; font-size: 14px; color: var(--muted-foreground); white-space: nowrap;">{{ m.when }}</span>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px;">
+        <div style="flex: 1; min-width: 0;">
+          <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 22px; line-height: 1.2;">{{ m.title }}</div>
+          <div style="font-size: 15px; color: var(--muted-foreground); padding-top: 2px;">{{ m.meta }}</div>
+        </div>
+        <div style="text-align: right; flex: 0 0 auto;">
+          <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 24px; color: {{ m.color }}; font-variant-numeric: tabular-nums;">{{ m.pct }}</div>
+          <div style="font-size: 14px; color: {{ m.color }}; white-space: nowrap;">{{ m.rating }}</div>
+        </div>
+      </div>
+    </div>
+  </sc-for>
+
+  <div style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 6;">
+    <div style="max-width: 430px; margin: 0 auto; background: var(--card); border-top: 1px solid var(--border); padding: 12px 16px 0;">
+      <button onClick="{{ onStart }}" style="width: 100%; display: flex; align-items: center; gap: 12px; border: none; text-align: left; background: var(--primary); color: var(--primary-foreground); border-radius: 20px; padding: 12px 14px 12px 20px; min-height: 64px; box-sizing: border-box; font-family: Asap, sans-serif;">
+        <span style="flex: 1; min-width: 0;">
+          <span style="display: block; font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 23px; line-height: 1.15;">Nieuwe meting starten</span>
+          <span style="display: block; font-size: 14px; opacity: 0.85;">{{ ctaMeta }}</span>
+        </span>
+        <span style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: var(--radius-pill); background: var(--primary-foreground); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 22px;">→</span>
+      </button>
+      <div style="display: flex; gap: 6px; padding: 10px 0 20px;">
+        <a href="Startscherm mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; color: var(--muted-foreground); font-size: 14px;">Home</a>
+        <a href="Weekbestellingen mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; color: var(--muted-foreground); font-size: 14px;">Bestellen</a>
+        <span style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); background: var(--accent); color: var(--primary); font-size: 14px; font-weight: 500;">Metingen</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:430,&quot;height&quot;:900}}">
+const SEED = [
+  { title: "Lunch — donderdag", when: "vandaag 12:40", plates: 12, kg: 0.1 },
+  { title: "Avondeten — woensdag", when: "gisteren 18:15", plates: 11, kg: 0.4 },
+  { title: "Lunch — woensdag", when: "gisteren 12:35", plates: 12, kg: 0.2 },
+  { title: "Avondeten — dinsdag", when: "di 18:20", plates: 12, kg: 0.6 }
+];
+
+const KEY_METINGEN = "ww-metingen";
+const MEALS = ["Ontbijt", "Lunch", "Avondeten"];
+
+class Component extends DCLogic {
+  state = { extra: [], starting: false, meal: "Lunch", plates: 12, kg: 0.2 };
+
+  componentDidMount() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY_METINGEN) || "null");
+      if (Array.isArray(saved)) this.setState({ extra: saved });
+    } catch (e) {}
+  }
+
+  rate(pct) {
+    if (pct <= 10) return { rating: "Goud", color: "var(--secondary)" };
+    if (pct <= 20) return { rating: "Zilver", color: "var(--muted-foreground)" };
+    return { rating: "Brons", color: "var(--destructive)" };
+  }
+
+  pct(kg, plates) {
+    return Math.max(0, Math.round((kg / (plates * 0.35)) * 100));
+  }
+
+  save() {
+    const { extra, meal, plates, kg } = this.state;
+    const entry = { title: meal + " — vandaag", when: "net toegevoegd", plates, kg };
+    const next = [entry].concat(extra);
+    try { localStorage.setItem(KEY_METINGEN, JSON.stringify(next)); } catch (e) {}
+    this.setState({ extra: next, starting: false });
+  }
+
+  renderVals() {
+    const { extra, starting, meal, plates, kg } = this.state;
+    const all = extra.concat(SEED);
+
+    const metingen = all.map(m => {
+      const pct = this.pct(m.kg, m.plates);
+      const r = this.rate(pct);
+      return {
+        title: m.title,
+        when: m.when,
+        meta: String(m.kg).replace(".", ",") + " kg verspilling · " + m.plates + " borden",
+        pct: pct + "%",
+        rating: r.rating,
+        color: r.color
+      };
+    });
+
+    const avg = all.length
+      ? Math.round(all.reduce((n, m) => n + this.pct(m.kg, m.plates), 0) / all.length)
+      : 0;
+    const totalKg = Math.round(all.reduce((n, m) => n + m.kg, 0) * 10) / 10;
+    const livePct = this.pct(kg, plates);
+    const liveRate = this.rate(livePct);
+    const stepStyle = "flex: 0 0 44px; width: 44px; height: 44px; border-radius: var(--radius-sm);"
+      + " border: 1px solid var(--border); background: var(--card); color: var(--foreground); font-size: 20px;";
+
+    return {
+      subhead: "Woongroep 3 · week 35",
+      avgPct: avg + "%",
+      totalKg: String(totalKg).replace(".", ","),
+      count: all.length,
+      metingen,
+      starting,
+      stepStyle,
+      plates,
+      kgLabel: String(Math.round(kg * 10) / 10).replace(".", ","),
+      previewLine: livePct + "% verspilling · " + liveRate.rating,
+      mealOptions: MEALS.map(m => ({
+        label: m,
+        style: "flex: 1; min-height: 46px; border-radius: var(--radius-pill); font-family: Asap, sans-serif; font-size: 15px;"
+          + " border: 1px solid " + (m === meal ? "var(--primary)" : "var(--border)")
+          + "; background: " + (m === meal ? "var(--primary)" : "var(--card)")
+          + "; color: " + (m === meal ? "var(--primary-foreground)" : "var(--foreground)") + ";",
+        onClick: () => this.setState({ meal: m })
+      })),
+      onPlatesMinus: () => this.setState(s => ({ plates: Math.max(1, s.plates - 1) })),
+      onPlatesPlus: () => this.setState(s => ({ plates: s.plates + 1 })),
+      onKgMinus: () => this.setState(s => ({ kg: Math.max(0, Math.round((s.kg - 0.1) * 10) / 10) })),
+      onKgPlus: () => this.setState(s => ({ kg: Math.round((s.kg + 0.1) * 10) / 10 })),
+      onStart: () => this.setState({ starting: true }),
+      onCancel: () => this.setState({ starting: false }),
+      onSave: () => this.save(),
+      ctaMeta: starting ? "Vul de meting hierboven in" : "Weeg de restborden en leg het vast"
+    };
+  }
+}
+</script>
+</body>
+</html>

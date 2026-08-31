@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/waste-warrior-design-system-7908025b-0e2e-433d-98e3-e76490f174df/colors_and_type.css">
+<script src="_ds/waste-warrior-design-system-7908025b-0e2e-433d-98e3-e76490f174df/_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: var(--background); }
+  * { -webkit-tap-highlight-color: transparent; }
+  a { color: var(--primary); }
+  a:hover { color: var(--secondary); }
+</style>
+</helmet>
+<div style="min-height: 100vh; max-width: 430px; margin: 0 auto; background: var(--background); color: var(--foreground); font-family: Asap, sans-serif; padding: 16px 16px 120px; display: flex; flex-direction: column; gap: 14px;">
+
+  <div class="contrast" style="background: var(--background); color: var(--foreground); border-radius: 26px; padding: 22px 20px 20px; display: flex; flex-direction: column; gap: 8px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="flex: 0 0 46px; width: 46px; height: 46px; border-radius: var(--radius-pill); background: var(--primary); color: var(--primary-foreground); display: flex; align-items: center; justify-content: center; font-size: 24px;">✓</span>
+      <div style="font-size: 17px; color: var(--primary);">{{ placedAt }}</div>
+    </div>
+    <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 34px; line-height: 1.06;">Bestelling geplaatst.</div>
+    <div style="font-size: 17px; color: var(--muted-foreground); text-wrap: pretty;">{{ intro }}</div>
+    <div style="display: flex; gap: 10px; padding-top: 14px;">
+      <div style="flex: 1; background: var(--card); border-radius: 16px; padding: 12px;">
+        <div style="font-size: 13px; color: var(--muted-foreground);">Ordernummer</div>
+        <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 20px;">{{ orderNo }}</div>
+      </div>
+      <div style="flex: 1; background: var(--card); border-radius: 16px; padding: 12px;">
+        <div style="font-size: 13px; color: var(--muted-foreground);">Porties</div>
+        <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 20px;">{{ portions }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="border: 1px solid var(--border); border-radius: 20px; background: var(--card); padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 600; font-size: 20px;">Status</div>
+    <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="{{ s.dotStyle }}">{{ s.dot }}</span>
+        <div style="flex: 1; min-width: 0;">
+          <div style="font-size: 16px;">{{ s.label }}</div>
+          <div style="font-size: 13px; color: var(--muted-foreground);">{{ s.time }}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display: flex; align-items: baseline; gap: 8px; padding: 6px 4px 0;">
+    <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 600; font-size: 22px;">Wie wat besteld heeft</div>
+  </div>
+
+  <sc-for list="{{ residents }}" as="r" hint-placeholder-count="6">
+    <div style="border: 1px solid var(--border); border-radius: 20px; background: var(--card); overflow: hidden;">
+      <button onClick="{{ r.onToggle }}" style="width: 100%; text-align: left; border: none; background: transparent; padding: 14px 16px; font-family: Asap, sans-serif; color: var(--foreground); display: flex; align-items: center; gap: 12px;">
+        <div style="flex: 1; min-width: 0;">
+          <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ r.name }}</div>
+          <div style="font-size: 14px; color: var(--muted-foreground);">{{ r.summary }}</div>
+        </div>
+        <span style="flex: 0 0 auto; font-size: 20px; color: var(--muted-foreground);">{{ r.caret }}</span>
+      </button>
+      <sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+        <div style="border-top: 1px solid var(--border); padding: 8px 16px 14px; display: flex; flex-direction: column; gap: 8px;">
+          <sc-for list="{{ r.rows }}" as="w" hint-placeholder-count="7">
+            <div style="display: flex; align-items: baseline; gap: 10px;">
+              <div style="flex: 0 0 86px; font-size: 14px; color: var(--muted-foreground); white-space: nowrap;">{{ w.day }}</div>
+              <div style="flex: 1; font-size: 16px; line-height: 1.3; text-wrap: pretty; color: {{ w.color }};">{{ w.dish }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-for>
+
+  <div style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 6;">
+    <div style="max-width: 430px; margin: 0 auto; background: var(--card); border-top: 1px solid var(--border); padding: 12px 16px 0;">
+      <div style="display: flex; gap: 6px; padding: 2px 0 20px;">
+        <a href="Startscherm mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; color: var(--muted-foreground); font-size: 14px;">Home</a>
+        <a href="Weekbestellingen mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; background: var(--accent); color: var(--primary); font-size: 14px; font-weight: 500;">Bestellen</a>
+        <a href="Metingen mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; color: var(--muted-foreground); font-size: 14px;">Metingen</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:430,&quot;height&quot;:900},&quot;orderNo&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;WW-2508-41739&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Bestelling&quot;}}">
+const DAYS = [
+  { day: "Maandag", date: "24 aug", a: "Gehaktbal met jus", b: "Gestoofde vis met saus" },
+  { day: "Dinsdag", date: "25 aug", a: "Sucadelapje met jus", b: "Hamlapje met jus" },
+  { day: "Woensdag", date: "26 aug", a: "Kipschnitzel met jus", b: "Lamslapje met jus" },
+  { day: "Donderdag", date: "27 aug", a: "Runderlapje met jus", b: "Kalkoendijlapje met jus" },
+  { day: "Vrijdag", date: "28 aug", a: "Gebakken kibbeling met saus", b: "Kip tikka masala" },
+  { day: "Zaterdag", date: "29 aug", a: "Omelet met kaas", b: "Procureurlapje met jus" },
+  { day: "Zondag", date: "30 aug", a: "Varkensschnitzel met jus", b: "Kalkoenrollade" }
+];
+
+const PEOPLE_FALLBACK = [
+  "Bram Kuiper", "Daan Vermeulen", "Fleur van Dijk", "Guus Lammers",
+  "Hanna Peters", "Ilse Hoekstra", "Marit Jansen", "Noor el Amrani",
+  "Ravi Nandram", "Sanne de Wit", "Tim Oosterhuis", "Youssef Bakker"
+];
+
+const DAYS_FALLBACK = [
+  { dish: "Gehaktbal met jus", off: [], extras: [] },
+  { dish: "Sucadelapje met jus", off: ["Hanna Peters"], extras: [] },
+  { dish: "Gestoofde vis met saus", off: ["Guus Lammers", "Tim Oosterhuis"], extras: [] },
+  { dish: "Kip tikka masala", off: [], extras: ["Wies (dochter Marit)"] },
+  { dish: "Gebakken kibbeling met saus", off: ["Noor el Amrani"], extras: [] },
+  { dish: null, off: [], extras: [] },
+  { dish: null, off: [], extras: [] }
+];
+
+const KEY = "ww-order-days-v3";
+const KEY_PEOPLE = "ww-weekmenu-people";
+const KEY_ORDER = "ww-weekmenu-order-v3";
+
+class Component extends DCLogic {
+  state = { people: PEOPLE_FALLBACK, days: DAYS_FALLBACK, order: null, open: {} };
+
+  componentDidMount() {
+    try {
+      const people = JSON.parse(localStorage.getItem(KEY_PEOPLE) || "null");
+      const days = JSON.parse(localStorage.getItem(KEY) || "null");
+      const order = JSON.parse(localStorage.getItem(KEY_ORDER) || "null");
+      const next = {};
+      if (Array.isArray(people) && people.length) next.people = people;
+      if (Array.isArray(days) && days.length === DAYS.length && days[0] && "dish" in days[0]) next.days = days;
+      if (order) next.order = order;
+      if (Object.keys(next).length) this.setState(next);
+    } catch (e) {}
+  }
+
+  dot(done) {
+    return "flex: 0 0 28px; width: 28px; height: 28px; border-radius: var(--radius-pill);"
+      + " display: flex; align-items: center; justify-content: center; font-size: 15px;"
+      + " background: " + (done ? "var(--primary)" : "var(--muted)")
+      + "; color: " + (done ? "var(--primary-foreground)" : "var(--muted-foreground)") + ";";
+  }
+
+  renderVals() {
+    const { people, days, order, open } = this.state;
+    let eating = 0;
+    days.forEach(d => {
+      if (!d.dish) return;
+      eating += people.filter(n => (d.off || []).indexOf(n) === -1).length + (d.extras || []).length;
+    });
+
+    // Extra personen die eenmalig mee-eten staan als eigen regel onder de bewoners.
+    const extraNames = [];
+    days.forEach(d => (d.extras || []).forEach(n => {
+      if (extraNames.indexOf(n) === -1) extraNames.push(n);
+    }));
+
+    const listed = people.concat(extraNames);
+    const residents = listed.map((name, pi) => {
+      const isGuest = pi >= people.length;
+      const meals = days.filter(d => d.dish && (isGuest
+        ? (d.extras || []).indexOf(name) !== -1
+        : (d.off || []).indexOf(name) === -1)).length;
+      const skips = isGuest ? 0 : days.filter(d => d.dish && (d.off || []).indexOf(name) !== -1).length;
+      const isOpen = !!open[pi];
+      return {
+        name: isGuest ? name + " (eenmalig)" : name,
+        summary: meals + " maaltijden" + (skips ? " · " + skips + "× niet mee-eten" : ""),
+        open: isOpen,
+        caret: isOpen ? "−" : "+",
+        onToggle: () => this.setState(s => {
+          const o = Object.assign({}, s.open);
+          o[pi] = !o[pi];
+          return { open: o };
+        }),
+        rows: DAYS.map((s, di) => {
+          const d = days[di] || { dish: null, off: [], extras: [] };
+          const mee = d.dish && (isGuest
+            ? (d.extras || []).indexOf(name) !== -1
+            : (d.off || []).indexOf(name) === -1);
+          return {
+            day: s.day.slice(0, 2) + " " + s.date,
+            dish: !d.dish ? "Geen gerecht gekozen" : mee ? d.dish : "Eet niet mee",
+            color: mee ? "var(--foreground)" : "var(--muted-foreground)"
+          };
+        })
+      };
+    });
+
+    return {
+      orderNo: this.props.orderNo ?? "WW-2508-41739",
+      placedAt: order && order.placedAt
+        ? "Verstuurd op " + new Date(order.placedAt).toLocaleDateString("nl-NL", { weekday: "long", day: "numeric", month: "long" })
+        : "Verstuurd · vandaag 14:12",
+      intro: "De bestelling staat bij de leverancier. Levering maandag 31 aug tussen 07:00 en 09:00 bij Woongroep 3.",
+      portions: (order && order.portions) || eating,
+      steps: [
+        { label: "Keuzes opgenomen", time: "vandaag 14:08", dot: "✓", dotStyle: this.dot(true) },
+        { label: "Ontvangen in bestelsysteem", time: "vandaag 14:12", dot: "✓", dotStyle: this.dot(true) },
+        { label: "Bevestigd door leverancier", time: "vandaag 14:14", dot: "✓", dotStyle: this.dot(true) }
+      ],
+      residents
+    };
+  }
+}
+</script>
+</body>
+</html>

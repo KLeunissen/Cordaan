@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#0f3d2e">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0f3d2e"/>
+    <g stroke="#eafff3" stroke-width="26" stroke-linecap="round">
+      <path d="M360 300h480M360 400h480M360 500h300"/>
+    </g>
+    <g fill="#8ede b0"/>
+    <circle cx="270" cy="300" r="26" fill="#7ddfa8"/>
+    <circle cx="270" cy="400" r="26" fill="#7ddfa8"/>
+    <circle cx="270" cy="500" r="26" fill="#7ddfa8"/>
+  </svg>
+</template>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/waste-warrior-design-system-7908025b-0e2e-433d-98e3-e76490f174df/colors_and_type.css">
+<script src="_ds/waste-warrior-design-system-7908025b-0e2e-433d-98e3-e76490f174df/_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: var(--background); }
+  * { -webkit-tap-highlight-color: transparent; }
+  a { color: var(--primary); }
+  a:hover { color: var(--secondary); }
+</style>
+</helmet>
+<div style="min-height: 100vh; max-width: 430px; margin: 0 auto; background: var(--background); color: var(--foreground); font-family: Asap, sans-serif; padding: 0 16px 200px; display: flex; flex-direction: column; gap: 14px;">
+
+  <div class="contrast" style="background: var(--background); color: var(--foreground); border-radius: 0 0 26px 26px; margin: 0 -16px; padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 4px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="Bestelmodule mobiel.dc.html" style="text-decoration: none; color: var(--primary); font-size: 16px; white-space: nowrap;">← Dagen</a>
+      <div style="font-size: 15px; color: var(--muted-foreground); margin-left: auto; white-space: nowrap;">Ingrediënten · Week 3</div>
+    </div>
+    <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.08; padding-top: 6px;">Hoeveelheden</div>
+    <div style="font-size: 15px; color: var(--muted-foreground);">{{ headline }}</div>
+    <div style="display: flex; gap: 10px; padding-top: 14px;">
+      <div style="flex: 1; background: var(--card); border-radius: 16px; padding: 12px;">
+        <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 26px;">{{ dishCount }}</div>
+        <div style="font-size: 14px; color: var(--muted-foreground);">gerechten</div>
+      </div>
+      <div style="flex: 1; background: var(--card); border-radius: 16px; padding: 12px;">
+        <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 26px;">{{ portionCount }}</div>
+        <div style="font-size: 14px; color: var(--muted-foreground);">porties</div>
+      </div>
+      <div style="flex: 1; background: var(--card); border-radius: 16px; padding: 12px;">
+        <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 26px;">{{ lineCount }}</div>
+        <div style="font-size: 14px; color: var(--muted-foreground);">regels</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="border: 1px solid var(--secondary); border-radius: 20px; background: var(--card); padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; align-items: baseline; gap: 8px;">
+      <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 600; font-size: 20px;">Uit eerdere metingen</div>
+      <a href="Metingen mobiel.dc.html" style="font-size: 14px; margin-left: auto; white-space: nowrap;">Metingen →</a>
+    </div>
+    <div style="font-size: 15px; line-height: 1.45; text-wrap: pretty;">{{ adviceSummary }}</div>
+    <sc-if value="{{ hasAdvice }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; gap: 8px;">
+        <button onClick="{{ applyAll }}" style="flex: 1; min-height: 46px; border: none; border-radius: var(--radius-pill); background: var(--primary); color: var(--primary-foreground); font-family: Asap, sans-serif; font-size: 15px; font-weight: 500;">Alle adviezen toepassen</button>
+        <button onClick="{{ resetAll }}" style="flex: 0 0 auto; min-height: 46px; padding: 0 16px; border: 1px solid var(--border); border-radius: var(--radius-pill); background: transparent; color: var(--foreground); font-family: Asap, sans-serif; font-size: 15px;">Terugzetten</button>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-for list="{{ dishes }}" as="d" hint-placeholder-count="4">
+    <div style="border: 1px solid var(--border); border-radius: 20px; background: var(--card); overflow: hidden;">
+      <button onClick="{{ d.onToggle }}" style="width: 100%; text-align: left; border: none; background: transparent; padding: 16px; font-family: Asap, sans-serif; color: var(--foreground); display: flex; align-items: center; gap: 12px;">
+        <div style="flex: 1; min-width: 0;">
+          <div style="font-size: 13px; color: var(--muted-foreground);">{{ d.meta }}</div>
+          <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 21px; line-height: 1.2; text-wrap: pretty;">{{ d.name }}</div>
+          <div style="font-size: 14px; padding-top: 2px; color: {{ d.subInk }};">{{ d.sub }}</div>
+        </div>
+        <span style="{{ d.badgeStyle }}">{{ d.portions }}×</span>
+      </button>
+
+      <sc-if value="{{ d.open }}" hint-placeholder-val="{{ false }}">
+        <div style="border-top: 1px solid var(--border); padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 10px;">
+
+          <div style="{{ d.historyStyle }}">
+            <div style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.75;">Vorige keer op de planning</div>
+            <div style="font-size: 15px; line-height: 1.45; padding-top: 3px; text-wrap: pretty;">{{ d.history }}</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <sc-for list="{{ d.ingredients }}" as="i" hint-placeholder-count="6">
+              <div style="padding: 8px 4px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="flex: 1; min-width: 0; font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ i.name }}</div>
+                  <button onClick="{{ i.onUnit }}" style="flex: 0 0 auto; min-width: 42px; height: 34px; padding: 0 8px; border-radius: var(--radius-pill); border: 1px solid var(--border); background: transparent; color: var(--muted-foreground); font-family: Asap, sans-serif; font-size: 14px;">{{ i.unit }}</button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <button onClick="{{ i.onMinus }}" style="flex: 0 0 44px; width: 44px; height: 44px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: transparent; color: var(--foreground); font-size: 20px;">−</button>
+                  <input value="{{ i.value }}" onChange="{{ i.onInput }}" inputMode="decimal" style="flex: 1; min-width: 0; height: 44px; padding: 0 12px; box-sizing: border-box; font-family: 'Asap Condensed', sans-serif; font-weight: 600; font-size: 19px; text-align: center; font-variant-numeric: tabular-nums; color: var(--foreground); background: var(--background); border: 1px solid var(--border); border-radius: var(--radius-sm);" />
+                  <button onClick="{{ i.onPlus }}" style="flex: 0 0 44px; width: 44px; height: 44px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: transparent; color: var(--foreground); font-size: 20px;">+</button>
+                </div>
+                <sc-if value="{{ i.hasHint }}" hint-placeholder-val="{{ false }}">
+                  <div style="{{ i.hintStyle }}">
+                    <div style="flex: 1; min-width: 0; font-size: 14px; line-height: 1.4; text-wrap: pretty;">{{ i.hint }}</div>
+                    <sc-if value="{{ i.canApply }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ i.onApply }}" style="flex: 0 0 auto; min-height: 38px; padding: 0 14px; border-radius: var(--radius-pill); border: 1px solid currentColor; background: transparent; color: inherit; font-family: Asap, sans-serif; font-size: 14px;">Pas toe</button>
+                    </sc-if>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-for>
+
+  <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+    <div style="border: 1px dashed var(--border); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
+      <div style="font-family: 'Asap Condensed', sans-serif; font-weight: 600; font-size: 20px;">Nog geen gerechten gekozen</div>
+      <div style="font-size: 15px; color: var(--muted-foreground); text-wrap: pretty;">Kies eerst per dag een gerecht en wie er mee-eet.</div>
+      <a href="Bestelmodule mobiel.dc.html" style="min-height: 46px; padding: 12px 18px; border-radius: var(--radius-pill); background: var(--primary); color: var(--primary-foreground); text-decoration: none; font-size: 15px;">Naar de dagen</a>
+    </div>
+  </sc-if>
+
+  <div style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 6;">
+    <div style="max-width: 430px; margin: 0 auto; background: var(--card); border-top: 1px solid var(--border); padding: 12px 16px 0;">
+      <a href="Bestelling geplaatst mobiel.dc.html" onClick="{{ onPlace }}" style="display: flex; align-items: center; gap: 12px; text-decoration: none; background: var(--primary); color: var(--primary-foreground); border-radius: 20px; padding: 12px 14px 12px 20px; min-height: 64px; box-sizing: border-box;">
+        <span style="flex: 1;">
+          <span style="display: block; font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 23px; line-height: 1.15;">Bestelling definitief maken</span>
+          <span style="display: block; font-size: 14px; opacity: 0.8;">{{ footerMeta }}</span>
+        </span>
+        <span style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: var(--radius-pill); background: var(--primary-foreground); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 22px;">→</span>
+      </a>
+      <div style="display: flex; gap: 6px; padding: 10px 0 20px;">
+        <a href="Startscherm mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; color: var(--muted-foreground); font-size: 14px;">Home</a>
+        <a href="Weekbestellingen mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; background: var(--accent); color: var(--primary); font-size: 14px; font-weight: 500;">Bestellen</a>
+        <a href="Metingen mobiel.dc.html" style="flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-pill); text-decoration: none; color: var(--muted-foreground); font-size: 14px;">Metingen</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:430,&quot;height&quot;:900},&quot;todayIndex&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:6,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Vandaag&quot;}}">
+const DAYS = [
+  { day: "Maandag", date: "24 aug" }, { day: "Dinsdag", date: "25 aug" },
+  { day: "Woensdag", date: "26 aug" }, { day: "Donderdag", date: "27 aug" },
+  { day: "Vrijdag", date: "28 aug" }, { day: "Zaterdag", date: "29 aug" },
+  { day: "Zondag", date: "30 aug" }
+];
+
+const RECIPES = {
+  "Gehaktbal met jus": [["rundergehakt", 1200, "gr"], ["paneermeel", 160, "gr"], ["ei", 2, "st"], ["ui", 2, "st"], ["nootmuskaat", 4, "gr"], ["jus", 600, "ml"], ["snijboontjes", 1200, "gr"], ["gekookte aardappelen", 1600, "gr"], ["roomboter", 80, "gr"], ["gebonden koninginnesoep", 2000, "ml"]],
+  "Gestoofde vis met saus": [["kabeljauwfilet", 1200, "gr"], ["visfond", 500, "ml"], ["room", 250, "ml"], ["citroen", 1, "st"], ["dille", 20, "gr"], ["sperziebonen", 1200, "gr"], ["aardappelpuree", 1600, "gr"], ["melk", 300, "ml"], ["mosterdsoep", 2000, "ml"]],
+  "Sucadelapje met jus": [["sucadelappen", 1400, "gr"], ["runderbouillon", 600, "ml"], ["ui", 3, "st"], ["laurierblad", 4, "st"], ["kruidnagel", 4, "st"], ["witte bonen", 800, "gr"], ["snijbonen", 800, "gr"], ["gekookte aardappelen", 1600, "gr"], ["roomboter", 80, "gr"], ["gebonden tomatensoep", 2000, "ml"]],
+  "Hamlapje met jus": [["hamlappen", 1200, "gr"], ["jus", 600, "ml"], ["ui", 2, "st"], ["romano boontjes", 1200, "gr"], ["gekookte aardappelen", 1600, "gr"], ["roomboter", 80, "gr"], ["heldere rundvleessoep", 2000, "ml"]],
+  "Kipschnitzel met jus": [["kipschnitzels", 8, "st"], ["paneermeel", 200, "gr"], ["ei", 2, "st"], ["zonnebloemolie", 300, "ml"], ["jus", 600, "ml"], ["gemengde groenten", 1200, "gr"], ["krielaardappelen", 1600, "gr"], ["roomboter", 80, "gr"], ["gebonden kerriesoep", 2000, "ml"]],
+  "Kip tikka masala": [["kipfilet in blokjes", 1400, "gr"], ["tikka masala pasta", 250, "gr"], ["kokosmelk", 800, "ml"], ["tomatenpuree", 200, "gr"], ["ui", 3, "st"], ["knoflook", 4, "st"], ["rijst", 800, "gr"], ["verse koriander", 30, "gr"], ["naanbrood", 8, "st"], ["vermicellisoep", 2000, "ml"]],
+  "Lamslapje met jus": [["lamslappen", 1200, "gr"], ["jus", 600, "ml"], ["rozemarijn", 15, "gr"], ["knoflook", 4, "st"], ["spinazie", 1600, "gr"], ["aardappelpuree", 1600, "gr"], ["melk", 300, "ml"], ["heldere champignonsoep", 2000, "ml"]],
+  "Runderlapje met jus": [["runderlappen", 1400, "gr"], ["runderbouillon", 600, "ml"], ["ui", 3, "st"], ["laurierblad", 4, "st"], ["asperges", 1600, "gr"], ["gekookte aardappelen", 1600, "gr"], ["roomboter", 80, "gr"], ["heldere aspergesoep", 2000, "ml"]],
+  "Kalkoendijlapje met jus": [["kalkoendijlappen", 1200, "gr"], ["jus", 600, "ml"], ["ui", 2, "st"], ["rode kool", 1600, "gr"], ["appel", 3, "st"], ["kruidnagel", 4, "st"], ["aardappelpuree", 1600, "gr"], ["melk", 300, "ml"], ["indische tomatensoep", 2000, "ml"]],
+  "Gebakken kibbeling met saus": [["kibbeling", 1400, "gr"], ["bakmeel", 200, "gr"], ["zonnebloemolie", 500, "ml"], ["ravigottesaus", 400, "ml"], ["citroen", 2, "st"], ["parijse worteltjes", 1200, "gr"], ["gekookte aardappelen", 1600, "gr"], ["roomboter", 80, "gr"], ["boerengroentesoep", 2000, "ml"]],
+  "Omelet met kaas": [["ei", 24, "st"], ["belegen kaas geraspt", 400, "gr"], ["melk", 300, "ml"], ["roomboter", 100, "gr"], ["tuinerwtjes", 1200, "gr"], ["gekookte aardappelen", 1600, "gr"], ["gebonden preisoep", 2000, "ml"]],
+  "Procureurlapje met jus": [["procureurlappen", 1300, "gr"], ["jus", 600, "ml"], ["hutspotgroente (wortel/ui)", 1400, "gr"], ["aardappelen", 1600, "gr"], ["roomboter", 80, "gr"], ["mosterd", 60, "gr"], ["gebonden preisoep", 2000, "ml"]],
+  "Varkensschnitzel met jus": [["varkensschnitzels", 8, "st"], ["paneermeel", 200, "gr"], ["ei", 2, "st"], ["jus", 600, "ml"], ["witlof", 1400, "gr"], ["aardappelschijfjes", 1600, "gr"], ["zonnebloemolie", 500, "ml"], ["heldere groentensoep", 2000, "ml"]],
+  "Kalkoenrollade": [["kalkoenrollade", 1400, "gr"], ["jus", 600, "ml"], ["tijm", 15, "gr"], ["broccoli", 1400, "gr"], ["aardappelpuree", 1600, "gr"], ["melk", 300, "ml"], ["heldere groentensoep", 2000, "ml"]]
+};
+
+// Laatste meting van dit gerecht in woongroep 3.
+const DISH_HISTORY = {
+  "Gehaktbal met jus": { last: "9 jan", pct: 8, kg: "0,6 kg", plates: 12 },
+  "Gestoofde vis met saus": { last: "19 dec", pct: 24, kg: "1,9 kg", plates: 11 },
+  "Sucadelapje met jus": { last: "2 jan", pct: 12, kg: "0,9 kg", plates: 12 },
+  "Hamlapje met jus": { last: "12 dec", pct: 9, kg: "0,7 kg", plates: 12 },
+  "Kipschnitzel met jus": { last: "5 dec", pct: 14, kg: "1,1 kg", plates: 12 },
+  "Kip tikka masala": { last: "26 dec", pct: 27, kg: "2,2 kg", plates: 12 },
+  "Lamslapje met jus": { last: "28 nov", pct: 21, kg: "1,6 kg", plates: 11 },
+  "Runderlapje met jus": { last: "9 jan", pct: 11, kg: "0,8 kg", plates: 12 },
+  "Omelet met kaas": { last: "7 jan", pct: 6, kg: "0,4 kg", plates: 12 },
+  "Procureurlapje met jus": { last: "21 nov", pct: 18, kg: "1,4 kg", plates: 12 },
+  "Varkensschnitzel met jus": { last: "2 jan", pct: 10, kg: "0,8 kg", plates: 12 },
+  "Kalkoenrollade": { last: "25 dec", pct: 16, kg: "1,3 kg", plates: 12 }
+};
+
+// Ingrediënten die in deze woongroep structureel overblijven.
+const WASTE = {
+  "gekookte aardappelen": { pct: 26, left: "2,1 kg", weeks: 4, cut: 20 },
+  "aardappelpuree": { pct: 18, left: "1,3 kg", weeks: 3, cut: 15 },
+  "aardappelen": { pct: 22, left: "1,7 kg", weeks: 4, cut: 20 },
+  "aardappelschijfjes": { pct: 17, left: "1,1 kg", weeks: 2, cut: 15 },
+  "krielaardappelen": { pct: 9, left: "600 gr", weeks: 3, cut: 0 },
+  "rijst": { pct: 31, left: "900 gr", weeks: 3, cut: 25 },
+  "naanbrood": { pct: 24, left: "4 stuks", weeks: 2, cut: 20 },
+  "spinazie": { pct: 28, left: "1,4 kg", weeks: 2, cut: 25 },
+  "rode kool": { pct: 24, left: "1,2 kg", weeks: 3, cut: 20 },
+  "witlof": { pct: 20, left: "1,0 kg", weeks: 2, cut: 15 },
+  "gemengde groenten": { pct: 16, left: "850 gr", weeks: 4, cut: 10 },
+  "jus": { pct: 19, left: "700 ml", weeks: 4, cut: 15 },
+  "roomboter": { pct: 3, left: "20 gr", weeks: 4, cut: 0 },
+  "rundergehakt": { pct: 2, left: "70 gr", weeks: 4, cut: 0 },
+  "kabeljauwfilet": { pct: 4, left: "90 gr", weeks: 2, cut: 0 },
+  "kibbeling": { pct: 5, left: "120 gr", weeks: 3, cut: 0 },
+  "kipfilet in blokjes": { pct: 6, left: "150 gr", weeks: 2, cut: 0 },
+  "sperziebonen": { pct: 14, left: "700 gr", weeks: 3, cut: 10 },
+  "snijboontjes": { pct: 15, left: "780 gr", weeks: 4, cut: 10 }
+};
+
+function hintFor(name) {
+  if (WASTE[name]) return WASTE[name];
+  if (/soep$/.test(name)) return { pct: 21, left: "1,6 l", weeks: 4, cut: 20 };
+  return null;
+}
+
+const WARN_INK = "oklch(0.45 0.10 60)";
+const GOOD_INK = "oklch(0.45 0.13 140)";
+
+const KEY_DAYS = "ww-order-days-v3";
+const KEY_PEOPLE = "ww-weekmenu-people";
+const KEY_AMOUNTS = "ww-order-amounts-v3";
+const KEY_ORDER = "ww-weekmenu-order-v3";
+
+const PEOPLE_FALLBACK = [
+  "Bram Kuiper", "Daan Vermeulen", "Fleur van Dijk", "Guus Lammers",
+  "Hanna Peters", "Ilse Hoekstra", "Marit Jansen", "Noor el Amrani",
+  "Ravi Nandram", "Sanne de Wit", "Tim Oosterhuis", "Youssef Bakker"
+];
+
+const DAYS_FALLBACK = [
+  { dish: "Gehaktbal met jus", off: [], extras: [] },
+  { dish: "Sucadelapje met jus", off: ["Hanna Peters"], extras: [] },
+  { dish: "Gestoofde vis met saus", off: ["Guus Lammers", "Tim Oosterhuis"], extras: [] },
+  { dish: "Kip tikka masala", off: [], extras: ["Wies (dochter Marit)"] },
+  { dish: "Gebakken kibbeling met saus", off: ["Noor el Amrani"], extras: [] },
+  { dish: null, off: [], extras: [] },
+  { dish: null, off: [], extras: [] }
+];
+
+function fmt(n) {
+  return String(Math.round(n * 100) / 100).replace(".", ",");
+}
+
+function MIGRATE_DAYS(d) {
+  if (!Array.isArray(d) || d.length !== 7 || !d[1] || !d[3]) return d;
+  if (d[1].dish === "Kip tikka masala" && d[3].dish === "Sucadelapje met jus") {
+    const n = d.slice();
+    n[1] = Object.assign({}, d[1], { dish: d[3].dish });
+    n[3] = Object.assign({}, d[3], { dish: d[1].dish });
+    try { localStorage.setItem(KEY_DAYS, JSON.stringify(n)); } catch (e) {}
+    return n;
+  }
+  return d;
+}
+
+class Component extends DCLogic {
+  state = {
+    days: DAYS_FALLBACK,
+    people: PEOPLE_FALLBACK,
+    open: { 0: true },
+    amounts: {},
+    units: {},
+    draft: {}
+  };
+
+  componentDidMount() {
+    try {
+      const days = MIGRATE_DAYS(JSON.parse(localStorage.getItem(KEY_DAYS) || "null"));
+      const people = JSON.parse(localStorage.getItem(KEY_PEOPLE) || "null");
+      const amounts = JSON.parse(localStorage.getItem(KEY_AMOUNTS) || "null");
+      const next = {};
+      if (Array.isArray(days) && days.length === DAYS.length && days[0] && "dish" in days[0]) next.days = days;
+      if (Array.isArray(people) && people.length) next.people = people;
+      if (amounts && typeof amounts === "object") next.amounts = amounts;
+      if (Object.keys(next).length) this.setState(next);
+    } catch (e) {}
+  }
+
+  saveAmounts(amounts) {
+    try { localStorage.setItem(KEY_AMOUNTS, JSON.stringify(amounts)); } catch (e) {}
+  }
+
+  setAmount(key, value, keepDraft) {
+    this.setState(s => {
+      const amounts = Object.assign({}, s.amounts);
+      amounts[key] = Math.max(0, Math.round(value * 100) / 100);
+      this.saveAmounts(amounts);
+      if (keepDraft) return { amounts };
+      const draft = Object.assign({}, s.draft);
+      delete draft[key];
+      return { amounts, draft };
+    });
+  }
+
+  renderVals() {
+    const { days, people, open, amounts, units, draft } = this.state;
+    const rows = [];
+    const dishes = [];
+
+    DAYS.forEach((src, di) => {
+      const d = days[di] || { dish: null, off: [], extras: [] };
+      if (!d.dish) return;
+      const eating = people.filter(n => (d.off || []).indexOf(n) === -1).length;
+      const portions = eating + (d.extras || []).length;
+      if (!portions) return;
+      const recipe = RECIPES[d.dish] || [];
+      const key = di + "|" + d.dish;
+      const h0 = DISH_HISTORY[d.dish];
+
+      const ingredients = recipe.map(([ing, amount, unit], ii) => {
+        const ikey = key + ":" + ii;
+        const std = Math.round((amount / 8) * portions);
+        const base = amounts[ikey] != null ? amounts[ikey] : std;
+        const h = hintFor(ing);
+        const disp = units[ikey] || (unit === "gr" && base >= 1000 ? "kg" : unit === "ml" && base >= 1000 ? "l" : unit);
+        const div = (disp === "kg" || disp === "l") ? 1000 : 1;
+        const step = unit === "st" ? 1 : div === 1000 ? 100 : 50;
+        const suggested = h && h.cut ? Math.round(std * (1 - h.cut / 100)) : null;
+        const applied = suggested != null && base <= suggested;
+
+        let hint = null, tone = null;
+        if (h && h.cut) {
+          hint = applied
+            ? "Advies toegepast: " + h.cut + "% minder dan het standaardrecept."
+            : "Vorige " + h.weeks + " keer bleef gemiddeld " + h.left + " over (" + h.pct + "%). Bestel ongeveer " + h.cut + "% minder.";
+          tone = applied ? "good" : "warn";
+        } else if (h && h.pct <= 6) {
+          hint = "Ging de vorige " + h.weeks + " keer bijna helemaal op (" + h.pct + "% rest). Hoeveelheid houden.";
+          tone = "good";
+        }
+        if (tone === "warn") rows.push({ ikey, suggested });
+
+        return {
+          name: ing,
+          unit: disp,
+          value: draft[ikey] != null ? draft[ikey] : fmt(base / div),
+          onInput: e => {
+            const raw = e.target.value;
+            this.setState(s => {
+              const dd = Object.assign({}, s.draft);
+              dd[ikey] = raw;
+              return { draft: dd };
+            });
+            const v = parseFloat(raw.replace(",", "."));
+            if (!isNaN(v)) this.setAmount(ikey, v * div, true);
+          },
+          onMinus: () => this.setAmount(ikey, Math.max(0, base - step)),
+          onPlus: () => this.setAmount(ikey, base + step),
+          onUnit: () => {
+            if (unit === "st") return;
+            this.setState(s => {
+              const u = Object.assign({}, s.units);
+              u[ikey] = disp === unit ? (unit === "gr" ? "kg" : "l") : unit;
+              const dd = Object.assign({}, s.draft);
+              delete dd[ikey];
+              return { units: u, draft: dd };
+            });
+          },
+          hasHint: !!hint,
+          hint: hint || "",
+          canApply: tone === "warn",
+          onApply: () => this.setAmount(ikey, suggested),
+          hintStyle: "display: flex; align-items: center; gap: 10px; border-radius: 12px; padding: 8px 10px;"
+            + " background: var(--accent); color: " + (tone === "warn" ? WARN_INK : GOOD_INK) + ";"
+        };
+      });
+
+      const warnCount = ingredients.filter(i => i.canApply).length;
+      const hot = h0 && h0.pct >= 20;
+
+      dishes.push({
+        name: d.dish,
+        meta: src.day + " " + src.date
+          + ((d.extras || []).length ? " · " + d.extras.length + " eenmalig mee" : "")
+          + (eating < people.length ? " · " + (people.length - eating) + " eet niet mee" : ""),
+        portions,
+        open: !!open[key],
+        sub: warnCount
+          ? warnCount + " ingrediënt" + (warnCount > 1 ? "en" : "") + " met veel rest vorige keer"
+          : recipe.length + " ingrediënten · hoeveelheden voor " + portions + " personen",
+        subInk: warnCount ? WARN_INK : "var(--muted-foreground)",
+        history: h0
+          ? "Op " + h0.last + " stond dit gerecht voor het laatst op de planning: " + h0.kg
+            + " over van " + h0.plates + " borden (" + h0.pct + "% verspilling)."
+            + (hot ? " Dat is veel — verlaag de hoeveelheden hieronder." : " Dat was netjes; de hoeveelheden kunnen zo blijven.")
+          : "Dit gerecht is in deze woongroep nog niet eerder gemeten. Hoeveelheden volgen het standaardrecept.",
+        historyStyle: "border-radius: 14px; padding: 12px; background: var(--accent); color: "
+          + (h0 ? (hot ? WARN_INK : GOOD_INK) : "var(--muted-foreground)") + ";",
+        badgeStyle: "flex: 0 0 auto; border-radius: var(--radius-pill); min-width: 46px; height: 46px;"
+          + " display: flex; align-items: center; justify-content: center; padding: 0 10px;"
+          + " font-family: 'Asap Condensed', sans-serif; font-weight: 700; font-size: 18px;"
+          + " background: var(--primary); color: var(--primary-foreground);",
+        onToggle: () => this.setState(s => {
+          const o = Object.assign({}, s.open);
+          o[key] = !o[key];
+          return { open: o };
+        }),
+        ingredients
+      });
+    });
+
+    const portionCount = dishes.reduce((n, d) => n + d.portions, 0);
+    const lineCount = dishes.reduce((n, d) => n + d.ingredients.length, 0);
+    const warnTotal = rows.length;
+
+    return {
+      headline: "Levering ma 31 aug, 07:00–09:00 · Woongroep 3",
+      dishCount: dishes.length,
+      portionCount,
+      lineCount,
+      dishes,
+      isEmpty: dishes.length === 0,
+      hasAdvice: warnTotal > 0,
+      adviceSummary: dishes.length === 0
+        ? "Zodra je per dag een gerecht kiest, verschijnt hier het advies uit eerdere metingen."
+        : warnTotal
+          ? warnTotal + " ingrediënten bleven de afgelopen weken structureel over — vooral aardappel, rijst en soep. Pas de adviezen toe of stel per regel zelf bij."
+          : "Alle hoeveelheden staan gelijk aan of onder het advies uit de metingen van de afgelopen weken.",
+      applyAll: () => this.setState(s => {
+        const amounts = Object.assign({}, s.amounts);
+        rows.forEach(r => { if (r.suggested != null) amounts[r.ikey] = r.suggested; });
+        this.saveAmounts(amounts);
+        return { amounts, draft: {} };
+      }),
+      resetAll: () => {
+        this.setState({ amounts: {}, draft: {} });
+        this.saveAmounts({});
+      },
+      footerMeta: portionCount + " porties · " + lineCount + " regels",
+      onPlace: () => {
+        try {
+          localStorage.setItem(KEY_ORDER, JSON.stringify({
+            placedAt: Date.now(),
+            portions: portionCount,
+            dishes: dishes.map(d => ({ name: d.name, meta: d.meta, portions: d.portions }))
+          }));
+        } catch (e) {}
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
